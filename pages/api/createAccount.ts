@@ -4,11 +4,11 @@ import withHandler from "../../lib/server/withHandler";
 
 async function createAccount(req: NextApiRequest, res: NextApiResponse) {
   let user;
-  const { name, email } = req.body;
-  const reqData = { name, email };
+  const { name, phone } = req.body;
+  const reqData = { name, phone };
   user = await db.user.findUnique({
     where: {
-      email: reqData.email,
+      phone: reqData.phone,
     },
   });
 
@@ -22,7 +22,7 @@ async function createAccount(req: NextApiRequest, res: NextApiResponse) {
     user = await db.user.create({
       data: {
         name,
-        email,
+        phone,
       },
     });
 

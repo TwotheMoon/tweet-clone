@@ -4,10 +4,10 @@ import withHandler from "../../lib/server/withHandler";
 import { withApiSession } from "../../lib/server/withSession";
 
 async function logIn(req: NextApiRequest, res: NextApiResponse) {
-  const { email } = req.body;
+  const { phone } = req.body;
   const foundUser = await db.user.findUnique({
     where: {
-      email,
+      phone,
     },
   });
   if (!foundUser) return res.status(404).end();
