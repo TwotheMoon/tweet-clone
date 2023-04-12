@@ -1,12 +1,9 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import db from "../../../lib/server/db";
-import withHandler, { ResponseType } from "../../../lib/server/withHandler";
+import withHandler from "../../../lib/server/withHandler";
 import { withApiSession } from "../../../lib/server/withSession";
 
-async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<ResponseType>
-) {
+async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { id } = req.query;
   const tweet = await db.tweet.findUnique({
     where: {
@@ -22,6 +19,8 @@ async function handler(
       },
     },
   });
+
+  res.json({ status: "success", tweet });
 }
 
 export default withApiSession(

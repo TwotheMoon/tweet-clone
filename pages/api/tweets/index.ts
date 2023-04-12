@@ -1,28 +1,25 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import db from "../../../lib/server/db";
-import withHandler, { ResponseType } from "../../../lib/server/withHandler";
+import withHandler from "../../../lib/server/withHandler";
 import { withApiSession } from "../../../lib/server/withSession";
 
-async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<ResponseType>
-) {
+async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "GET") {
     const tweets = await db.tweet.findMany({});
     res.json({
-      ok: true,
+      status: "success",
       tweets,
     });
   }
   if (req.method === "POST") {
     const {
-      body: { image, message },
+      body: { tweetImgId, message },
       session: { user },
     } = req;
     const tweet = await db.tweet.create({
       data: {
+        image: tweetImgId,
         message,
-        image: "xx",
         user: {
           connect: {
             id: user?.id,
@@ -31,7 +28,7 @@ async function handler(
       },
     });
     res.json({
-      ok: true,
+      status: "success",
       tweet,
     });
   }
