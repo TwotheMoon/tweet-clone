@@ -30,6 +30,7 @@ export default function createAccount() {
   }, [data, router]);
   return (
     <div className="space-y-5 px-10 h-screen flex flex-col items-center justify-center">
+      <img className="max-w-[200px]" src="/images/logo.png" />
       <h1 className="text-xl font-bold">Create Account</h1>
       <form onSubmit={handleSubmit(onValid)}>
         <div className="space-x-3 mb-4 rounded-md relative flex  items-center shadow-sm">

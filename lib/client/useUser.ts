@@ -9,7 +9,7 @@ export default function useUser() {
   useEffect(() => {
     console.log(data);
     if (!data) {
-      router.replace("/create-account");
+      router.replace("/log-in");
     }
   }, [data, router]);
 

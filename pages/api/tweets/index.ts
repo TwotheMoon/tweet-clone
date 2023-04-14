@@ -5,7 +5,16 @@ import { withApiSession } from "../../../lib/server/withSession";
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "GET") {
-    const tweets = await db.tweet.findMany({});
+    const tweets = await db.tweet.findMany({
+      include: {
+        user: true,
+        _count: {
+          select: {
+            likes: true,
+          },
+        },
+      },
+    });
     res.json({
       status: "success",
       tweets,

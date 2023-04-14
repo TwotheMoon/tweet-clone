@@ -10,7 +10,7 @@ async function logIn(req: NextApiRequest, res: NextApiResponse) {
       phone,
     },
   });
-  if (!foundUser) return res.status(404).end();
+  if (!foundUser) return res.status(404).json({ status: "fail" });
 
   req.session.user = {
     id: foundUser?.id,

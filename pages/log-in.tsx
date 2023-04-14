@@ -27,9 +27,10 @@ export default function LogIn() {
 
   return (
     <div className="space-y-5 px-10 h-screen flex flex-col items-center justify-center">
+      <img className="max-w-[200px]" src="/images/logo.png" />
       <h1 className="text-xl font-bold">Log In</h1>
       <form onSubmit={handleSubmit(onValid)}>
-        <div className="flex mb-4 rounded-md shadow-sm">
+        <div className="flex mb-2 rounded-md shadow-sm">
           <span className="flex items-center justify-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 select-none text-sm">
             +82
           </span>
@@ -40,8 +41,19 @@ export default function LogIn() {
             placeholder="1012345678"
           />
         </div>
-        <button className="w-full  h-9 bg-orange-500 hover:bg-orange-600 text-white  px-4 border border-transparent rounded-md shadow-sm font-medium focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 focus:outline-none">
+        {data?.status === "fail" && (
+          <div className=" font-bold text-red-500">
+            해당 번호로 조회된 계정이 없어요.
+          </div>
+        )}
+        <button className="w-full mt-2  h-9 bg-orange-500 hover:bg-orange-600 text-white  px-4 border border-transparent rounded-md shadow-sm font-medium focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 focus:outline-none">
           {loading ? "Loading" : "Log In"}
+        </button>
+        <button
+          onClick={() => router.push("create-account")}
+          className="w-full mt-2 h-9 bg-orange-500 hover:bg-orange-600 text-white  px-4 border border-transparent rounded-md shadow-sm font-medium focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 focus:outline-none"
+        >
+          Create Account
         </button>
       </form>
     </div>

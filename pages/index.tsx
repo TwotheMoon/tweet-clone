@@ -1,4 +1,4 @@
-import { Tweet } from "@prisma/client";
+import { Tweet, User } from "@prisma/client";
 import Head from "next/head";
 import React from "react";
 import useSWR from "swr";
@@ -7,9 +7,16 @@ import Item from "../components/item";
 import Layout from "../components/layout";
 import useUser from "../lib/client/useUser";
 
+interface TweetWithCount extends Tweet {
+  user: User;
+  _count: {
+    likes: number;
+  };
+}
+
 interface TweetsResponse {
   status: string;
-  tweets: Tweet[];
+  tweets: TweetWithCount[];
 }
 
 export default function Home() {
@@ -32,9 +39,11 @@ export default function Home() {
                 tweetImg={tweet.image!}
                 createDate={tweet.createdAt}
                 userId={tweet.userId}
+                userName={tweet.user.name}
+                likesCount={tweet._count.likes}
               />
             ))}
-            <FloatingButton href="/tweets/upload">
+            <FloatingButton href="/tweet/upload">
               <svg
                 className="h-6 w-6"
                 xmlns="http://www.w3.org/2000/svg"
